@@ -1,25 +1,49 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
 
-function App() {
+const App = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+  });
+
+  const changeHandler = (event) => {
+    const { name, value } = event.target;
+
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+  };
+
+  function submitHandler(event) {
+    event.preventDefault();
+    console.log(formData);
+    setFormData({
+      name: "",
+      email: "",
+    });
+  }
+  
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <form onSubmit={submitHandler}>
+        <label>
+          Name:
+          <input type="text" name="name" value={formData.name} onChange={changeHandler} />
+        </label>
+<br/>
+
+        <label>
+          Email:
+          <input type="email" name="email" value={formData.email} onChange={changeHandler} />
+        </label>
+<br/>
+
+        <input type="submit" value="Submit" />
+      </form>
     </div>
   );
-}
+};
 
 export default App;
